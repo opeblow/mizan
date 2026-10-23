@@ -73,7 +73,7 @@ The public verifier (`/verify`) runs in the browser: it fetches evidence from th
 - No external calls to untrusted contracts; `_safeMint` targets known importer wallets. Checks-effects order respected in `issue` and `claimDeduction`.
 - Integer arithmetic in kg and cents, `uint64`/`uint128`, Solidity 0.8 overflow checks.
 - Custom errors give precise revert reasons the UI shows to users.
-- 15 Hardhat tests cover every guarantee in §2.4–2.6 (`packages/contracts/test/Mizan.test.ts`).
+- 13 Hardhat tests cover every guarantee in §2.4–2.6 (`packages/contracts/test/Mizan.test.ts`).
 - Not done in the hackathon: external audit, fuzzing (Echidna/Foundry invariant tests), formal verification of the allocation invariant (Σ allocated ≤ measured). These are first on the roadmap.
 
 ## 5. Known limitations, stated plainly
