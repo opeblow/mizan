@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment and secrets (never commit keys)
+.env
+.env.*
+!.env.example
+
+# Hardhat
+packages/contracts/artifacts/
+packages/contracts/cache/
+packages/contracts/typechain-types/
+packages/contracts/coverage/
+packages/contracts/coverage.json
+packages/contracts/deployments/31337.json
+
+# Runtime data (local database, meter private keys, demo logs)
+apps/api/data/
+apps/simulator/.keys/
+.demo-logs/
+*.log
+*.db
+*.db-wal
+*.db-shm
+
+# Film production workspace (large media; the final video is published separately)
+production/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
