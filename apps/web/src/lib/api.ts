@@ -11,7 +11,8 @@ export interface SessionUser {
 }
 
 /** Where the API lives. Empty in local dev (Vite proxies /api); set VITE_API_URL for a separate host such as Render. */
-export const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "").replace(/\/+$/, "");
+const DEFAULT_PROD_API = "https://mizan-p0rr.onrender.com";
+export const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) || (import.meta.env.PROD ? DEFAULT_PROD_API : "")).replace(/\/+$/, "");
 
 const TOKEN_KEY = "mizan.token";
 const store = {
