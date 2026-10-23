@@ -6,7 +6,7 @@ Since 1 January 2026, every tonne of cement, steel and aluminium entering the EU
 
 **Track:** Carbon Markets & Emissions Transparency · IEEE ClimateChain Global Hackathon 2026
 
-🎬 **Demo film:** [`production/product-launch-film/mizan-launch-film.mp4`](production/product-launch-film/mizan-launch-film.mp4) (4:06)
+🎬 **Demo film (4:06):** _YouTube link coming soon_
 
 ## How it works
 | Step | What happens | Tech |
