@@ -1,4 +1,4 @@
-# SETUP.md
+# Setup
 
 Everything you need to run Mizan locally, run the tests, deploy the contracts to a public testnet and record the demo. Tested on Windows 11 with Node 24 and pnpm 11; works the same on macOS and Linux (see §1.3).
 
@@ -121,5 +121,3 @@ Polygon Amoy (chain 80002) is cheap and fast.
 | Slow `pnpm install` | Large binaries; the workspace already limits them to your OS. Retry; downloads resume from the pnpm store |
 | Public verifier can't reach the chain | It reads `PUBLIC_RPC_URL` directly from the browser; it must be reachable from the browser's machine |
 
-## 8. Record the film
-See `production/product-launch-film/README.md`. Needs Python 3.11+, FFmpeg, `pip install playwright edge-tts numpy scipy`, and the stack running.
