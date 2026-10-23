@@ -31,6 +31,12 @@ Verifiable embedded-emissions accounting for exporters facing the EU Carbon Bord
   <a href="SECURITY.md">Report a vulnerability</a>
 </p>
 
+<p align="center">
+  <img src="docs/images/landing.png" width="900" alt="Mizan landing page: the problem statement, the four steps (measure, detect, anchor, certify) and role selection for operator, verifier, EU importer and ETS authority" />
+  <br/>
+  <sub>The landing page states the problem in one line, shows the four steps from meter to certificate, and lets each party in the CBAM value chain sign in with its own on-chain key.</sub>
+</p>
+
 ---
 
 Since 1 January 2026, every tonne of cement, steel and aluminium entering the EU carries a carbon price under CBAM. Türkiye supplies close to a third of the EU's imported cement and hosts COP31 this November. Exporters that cannot prove their real emissions are charged on default values with a mark-up, the proof behind most numbers is still a spreadsheet, and carbon already paid at home can be claimed twice.
@@ -46,8 +52,33 @@ Mizan (Turkish for *balance*, the scales of account) turns the meters inside a f
 
 ---
 
+## Screenshots
+
+All screenshots are from the running product, not mock-ups.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/overview.png" alt="Portfolio overview dashboard" /><br/><b>Overview.</b> Live embedded emissions per tonne for three export plants, integrity risk per interval, windows anchored on-chain and certified exports.</td>
+    <td width="50%"><img src="docs/images/tamper-detected.png" alt="Steel plant page after meter tampering" /><br/><b>Tampering caught live.</b> A grid meter is altered to report 68% of real load. Electricity per tonne drops below the physical floor and the risk strip turns red within one interval.</td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/images/ai-incident.png" alt="AI incident explanation" /><br/><b>The AI explains.</b> Measured 0.297 kWh/kg against a physical minimum of 0.330, the two possible causes, and an estimate of the CO₂e that would have been hidden. The verifier confirms or dismisses.</td>
+    <td width="50%"><img src="docs/images/double-claim-blocked.png" alt="Second CBAM claim blocked" /><br/><b>Double counting prevented.</b> The importer claims the deduction once; a second attempt is refused by the smart contract with <code>AlreadyClaimed</code>.</td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/images/public-verifier.png" alt="Public verifier, certificate authentic" /><br/><b>Verify without trusting anyone.</b> The browser reads the certificate from the chain, recomputes its emissions and re-verifies post-quantum signatures of sampled readings.</td>
+    <td width="50%"><img src="docs/images/insider-edit-caught.png" alt="Public verifier, tampered reading" /><br/><b>Insider edits fail.</b> A value changed directly in the database fails the signature, Merkle and on-chain proof checks.</td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/images/cbam-exposure.png" alt="CBAM exposure planner" /><br/><b>Plan with verified data.</b> Net CBAM cost to 2034 as free allocation phases out, with renewable power, fuel switching, lower-clinker cement and efficiency levers, and the cost of falling back to default values.</td>
+  </tr>
+</table>
+
+---
+
 ## Table of contents
 
+- [Screenshots](#screenshots)
 - [How Mizan meets every judging criterion](#how-mizan-meets-every-judging-criterion)
   - [Climate impact](#1-climate-impact)
   - [Innovation and creativity](#2-innovation-and-creativity)
@@ -321,7 +352,8 @@ mizan/
 │   ├── SECURITY_ASSESSMENT.md      # Security and data integrity assessment
 │   ├── ADOPTION.md                 # Adoption strategy and scalability roadmap
 │   ├── SETUP.md                    # Setup, testing, testnet deployment
-│   └── PLAN.md                     # Strategy and judging map
+│   ├── PLAN.md                     # Strategy and judging map
+│   └── images/                     # README screenshots
 ├── scripts/demo.mjs                # One-command demo orchestrator
 ├── AGENTS.md                       # Guide for coding agents
 ├── CHANGELOG.md
