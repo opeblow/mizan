@@ -1,0 +1,26 @@
+{
+  "name": "@mizan/contracts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "hardhat compile",
+    "test": "hardhat test",
+    "chain": "hardhat node --hostname 127.0.0.1",
+    "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
+    "deploy:amoy": "hardhat run scripts/deploy.ts --network amoy",
+    "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "5.0.0",
+    "@openzeppelin/contracts": "^5.1.0",
+    "hardhat": "2.22.17",
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.10.0",
+    "@types/mocha": "^10.0.10",
+    "@types/chai": "^4.3.20",
+    "chai": "^4.5.0",
+    "ethers": "^6.13.4"
+  }
+}
