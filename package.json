@@ -1,0 +1,21 @@
+{
+  "name": "mizan",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Mizan: verifiable embedded-emissions accounting for CBAM-exposed industry. Post-quantum signed meters, AI integrity checks, on-chain anchoring and double-claim-proof certificates.",
+  "license": "MIT",
+  "packageManager": "pnpm@11.9.0",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "demo": "node scripts/demo.mjs",
+    "chain": "pnpm --filter @mizan/contracts chain",
+    "deploy:local": "pnpm --filter @mizan/contracts deploy:local",
+    "api": "pnpm --filter @mizan/api dev",
+    "web": "pnpm --filter @mizan/web dev",
+    "simulate": "pnpm --filter @mizan/simulator start",
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "build": "pnpm -r --if-present build",
+    "tamper": "pnpm --filter @mizan/api tamper"
+  }
+}
