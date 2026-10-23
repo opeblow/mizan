@@ -1,6 +1,6 @@
-# PLAN.md — Mizan for the IEEE ClimateChain Global Hackathon 2026
+# Plan — Mizan for the IEEE ClimateChain Global Hackathon 2026
 
-> Strategy, research and delivery plan. For running the code see [SETUP.md](SETUP.md); for working on the code see [AGENTS.md](AGENTS.md).
+> Strategy, research and delivery plan. For running the code see [SETUP.md](SETUP.md); for working on the code see [AGENTS.md](../AGENTS.md).
 
 **Deadline:** 25 October 2026, 07:00 PDT (14:00 UTC; the organisers' site says 23:59 UTC, the Devpost clock is the one that counts).
 **Track:** Carbon Markets & Emissions Transparency.
@@ -29,21 +29,21 @@ The organisers' own page (cmte.ieee.org/turkiye-blockchain/hackatlon) adds weigh
 
 | Weighted criterion | Weight | Where Mizan scores |
 |---|---|---|
-| Climate impact & environmental benefit | 30% | Catches under-reporting, puts a price on unverified data, decarbonisation planner with avoided-tonne projections ([docs/IMPACT.md](docs/IMPACT.md)) |
-| Technical innovation & blockchain implementation | 30% | Three contracts, 15 tests, on-chain Merkle verification, on-chain emissions arithmetic, PQ signatures, isolation forest from scratch |
+| Climate impact & environmental benefit | 30% | Catches under-reporting, puts a price on unverified data, decarbonisation planner with avoided-tonne projections (exposure planner, [README](../README.md#1-climate-impact)) |
+| Technical innovation & blockchain implementation | 30% | Three contracts, 13 tests, on-chain Merkle verification, on-chain emissions arithmetic, PQ signatures, isolation forest from scratch |
 | Feasibility & implementation quality | 10% | Runs end to end with one command, real workflows for five roles |
-| **Data security & transparency** | 10% | ML-DSA-44, replay and key-swap protection, hash-chained audit log, public verifier, STRIDE assessment ([docs/SECURITY.md](docs/SECURITY.md)) |
+| **Data security & transparency** | 10% | ML-DSA-44, replay and key-swap protection, hash-chained audit log, public verifier, STRIDE assessment ([SECURITY_ASSESSMENT.md](SECURITY_ASSESSMENT.md)) |
 | **User experience & design** | 10% | Purpose-built UI, validated colour-blind-safe palette, light and dark, explanations for every AI finding |
-| Scalability & sustainability | 10% | [docs/ADOPTION.md](docs/ADOPTION.md) |
+| Scalability & sustainability | 10% | [ADOPTION.md](ADOPTION.md) |
 
-Required extra deliverables on that page, all produced: architecture diagram and technical spec ([docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)), **security and data integrity assessment** ([docs/SECURITY.md](docs/SECURITY.md)), problem statement ≤ 2 pages ([docs/SUBMISSION.md](docs/SUBMISSION.md)), climate impact assessment with carbon reduction projections ([docs/IMPACT.md](docs/IMPACT.md)), implementation and adoption strategy and scalability roadmap ([docs/ADOPTION.md](docs/ADOPTION.md)), demo video.
+Required extra deliverables on that page, all produced: architecture diagram and technical spec ([ARCHITECTURE.md](ARCHITECTURE.md)), **security and data integrity assessment** ([SECURITY_ASSESSMENT.md](SECURITY_ASSESSMENT.md)), problem statement and solution overview ([README](../README.md)), climate impact assessment with carbon reduction projections (exposure planner, [README](../README.md#1-climate-impact)), implementation and adoption strategy and scalability roadmap ([ADOPTION.md](ADOPTION.md)), demo video.
 
 ### 1.3 The judges, and what each will look for
 | Judge | Background | What lands with them | Where it is in Mizan |
 |---|---|---|---|
 | Prof. Şeref Sağıroğlu | Gazi Univ., AI, big data, cybersecurity, blockchain; group chair | AI that is explainable and secure | Integrity engine with reasons; security assessment |
 | Dr. Güven Fidan | Hackathon lead; ran the "Blockchain and AI for Climate Change" session | Blockchain and AI genuinely combined | AI risk score is anchored on-chain with every window and gates certification |
-| Prof. Sedat Akleylek | Post-quantum cryptography, IoT security (Tartu); supervises "quantum-secure protocols for blockchain" | PQ crypto used correctly, honest threat model | ML-DSA-44 (FIPS 204) at the meter; hybrid model and its limits stated in SECURITY.md |
+| Prof. Sedat Akleylek | Post-quantum cryptography, IoT security (Tartu); supervises "quantum-secure protocols for blockchain" | PQ crypto used correctly, honest threat model | ML-DSA-44 (FIPS 204) at the meter; hybrid model and its limits stated in SECURITY_ASSESSMENT.md |
 | Dr. Kübra Seyhan | Lattice-based PQ protocols (PhD with Akleylek) | Lattice-based scheme, correct parameter choice | ML-DSA is lattice-based (Module-LWE/SIS); sizes and rationale documented |
 | Dr. Mubashar Iqbal | Security risk management of blockchain applications (Tartu) | Risk analysis of the chain layer itself | STRIDE table, smart-contract risks, role separation |
 | Prof. Gora Datta | HL7 Fellow, standards and interoperability | Standards alignment | CBAM CN codes, Annex II rules, ERC-721, FIPS 204, IPCC factors, data model mapping |
@@ -68,13 +68,13 @@ Searches found no earlier ClimateChain hackathon or winner list (this is the fir
 
 | Layer | What exists |
 |---|---|
-| Contracts | `MizanRegistry`, `MRVLedger`, `EmissionsCertificate` (Solidity 0.8.24, OpenZeppelin 5), 15 Hardhat tests |
+| Contracts | `MizanRegistry`, `MRVLedger`, `EmissionsCertificate` (Solidity 0.8.24, OpenZeppelin 5), 13 Hardhat tests |
 | Meters | 11 simulated meters on 3 plants, each with its own ML-DSA-44 key; realistic process physics; 6 attack scenarios |
 | API | Fastify + SQLite (node:sqlite), ingestion gate, integrity engine, window sealing and anchoring, attestation, certificates, carbon price, audit log, SSE |
 | AI | Physics envelopes, mass balance, robust z-scores, isolation forest (own implementation), frozen-sensor detector, noisy-OR fusion, human feedback loop |
 | Web | Overview, installation detail, integrity queue, MRV ledger, certificates, CBAM exposure planner, public verifier, audit trail; five roles; light and dark |
-| Docs | README, SETUP, AGENTS, PLAN, ARCHITECTURE, SECURITY, IMPACT, ADOPTION, SUBMISSION, DEMO_SCRIPT |
-| Film | `production/product-launch-film/` |
+| Docs | README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, AGENTS, docs/: SETUP, PLAN, ARCHITECTURE, SECURITY_ASSESSMENT, ADOPTION |
+| Film | Rendered separately (4:06), published as a video link |
 
 ## 3. Remaining timeline
 
@@ -84,13 +84,13 @@ Searches found no earlier ClimateChain hackathon or winner list (this is the fir
 | Day 1–2 | Render the launch film | Claude |
 | Day 2 (23 Oct) | Run `pnpm demo` on your machine, click through every page, read the docs, push to a **public** GitHub repo | You |
 | Day 2 | Optional: deploy contracts to Polygon Amoy (SETUP.md §5) and put the addresses in the README | You |
-| Day 3 (24 Oct) | Upload video to YouTube (unlisted is fine, public is better), fill Devpost from docs/SUBMISSION.md, submit | You |
+| Day 3 (24 Oct) | Upload video to YouTube (unlisted is fine, public is better), fill Devpost from the README, submit | You |
 | Day 3 | Buffer. Submit at least 12 hours before the deadline. | You |
 
 ## 4. Submission checklist
 - [ ] Public GitHub repo with this README at the root
 - [ ] Track stated: Carbon Markets & Emissions Transparency
-- [ ] Devpost text pasted from [docs/SUBMISSION.md](docs/SUBMISSION.md)
+- [ ] Devpost text adapted from the [README](../README.md)
 - [ ] Demo video link (YouTube/Vimeo), 3–5 min, from `production/product-launch-film/`
 - [ ] Screenshots uploaded to the Devpost gallery (`production/product-launch-film/captures/`)
 - [ ] "Try it out" link: the repo, plus the testnet contract addresses if deployed
@@ -102,5 +102,5 @@ Searches found no earlier ClimateChain hackathon or winner list (this is the fir
 |---|---|
 | Judges cannot run it | Video shows every workflow; SETUP.md is one command; testnet deployment optional |
 | "Simulated data" critique | Physics from published sector intensities, stated openly; ingestion API is the real integration point for meters/SCADA (ADOPTION.md) |
-| CBAM simplifications challenged | Every simplification listed in IMPACT.md with the regulation reference |
-| PQ claims challenged | SECURITY.md states the hybrid model: PQ at the data source, ECDSA on the chain, and the migration path |
+| CBAM simplifications challenged | Simplifications stated in the planner, the README limitations and SECURITY_ASSESSMENT.md |
+| PQ claims challenged | SECURITY_ASSESSMENT.md states the hybrid model: PQ at the data source, ECDSA on the chain, and the migration path |
