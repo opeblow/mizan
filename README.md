@@ -19,8 +19,22 @@ Verifiable embedded-emissions accounting for exporters facing the EU Carbon Bord
 </p>
 
 <p align="center">
-  <strong>Demo film (4:06):</strong> <em>YouTube link coming soon</em>
+  <strong><a href="https://mizan-159.pages.dev">Live app</a></strong> ·
+  <strong><a href="https://youtu.be/mW9BZHbX-74">Demo film (4:06)</a></strong> ·
+  <strong><a href="https://mizan-p0rr.onrender.com/api/health">Live API</a></strong> ·
+  <strong><a href="docs/Mizan_Submission.pdf">Submission PDF</a></strong>
 </p>
+
+> **TL;DR for reviewers.** Mizan is a working, deployed system for the **IEEE ClimateChain 2026 Carbon Markets & Emissions Transparency** track. Factory meters sign every reading with **post-quantum ML-DSA-44 (FIPS 204)**, an **AI integrity engine** flags tampering and explains it, readings are **anchored on-chain** in Merkle batches, and an **ERC-721 certificate per shipment** makes each tonne and each CBAM deduction usable **exactly once**. Anyone can re-verify a certificate in the browser without trusting our server.
+>
+> | Try it | Link |
+> |---|---|
+> | Live web app (pick any role, no password) | https://mizan-159.pages.dev |
+> | Public verifier | https://mizan-159.pages.dev/verify |
+> | Demo video | https://youtu.be/mW9BZHbX-74 |
+> | Backend health | https://mizan-p0rr.onrender.com/api/health |
+>
+> The backend runs on a free Render instance: the first load after idle can take ~1 minute while it wakes and re-seeds demo data. Everything also runs locally with one command: `pnpm demo`.
 
 <p align="center">
   <a href="#quick-start">Quick start</a> ·
