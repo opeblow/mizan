@@ -1,0 +1,8 @@
+# Default owner for everything in the repository
+*                                   @opeblow
+
+# Protocol-critical code: changes need explicit owner review
+/packages/contracts/                @opeblow
+/packages/shared/src/reading.ts     @opeblow
+/packages/shared/src/merkle.ts      @opeblow
+/packages/shared/src/pq.ts          @opeblow
