@@ -14,7 +14,7 @@ const num = (v: string | undefined, d: number) => (v === undefined || v === "" ?
 const HARDHAT_MNEMONIC = "test test test test test test test test test test test junk";
 
 export const config = {
-  port: num(process.env.API_PORT, 8787),
+  port: num(process.env.PORT ?? process.env.API_PORT, 8787),
   host: process.env.API_HOST ?? "127.0.0.1",
   dataDir: path.resolve(REPO_ROOT, process.env.DATA_DIR ?? "apps/api/data"),
   rpcUrl: process.env.RPC_URL ?? "http://127.0.0.1:8545",
@@ -40,6 +40,10 @@ export const config = {
   /** Share of each facility's output shipped to the EU, used for CBAM exposure. */
   euExportShare: { "TR-CEM-01": 0.38, "TR-STL-01": 0.45, "TR-ALU-01": 0.62 } as Record<string, number>,
   demoMode: (process.env.DEMO_MODE ?? "true") === "true",
+  /** Comma-separated browser origins allowed to call the API (e.g. the Cloudflare Pages URL). Empty = allow any. */
+  corsOrigins: (process.env.CORS_ORIGIN ?? "").split(",").map((o) => o.trim().replace(/\/+$/, "")).filter(Boolean),
+  /** Expose a read-only JSON-RPC proxy at /api/rpc so browsers can verify against a chain that is not public. */
+  rpcProxy: (process.env.RPC_PROXY ?? "false") === "true",
 };
 
 export function deploymentFile(chainId = config.chainId): string {

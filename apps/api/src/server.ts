@@ -44,7 +44,7 @@ import {
 } from "./queries";
 
 const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? "warn" }, bodyLimit: 32 * 1024 * 1024 });
-await app.register(cors, { origin: true });
+await app.register(cors, { origin: config.corsOrigins.length ? config.corsOrigins : true });
 app.decorateRequest("user", null);
 app.addHook("onRequest", async (req) => authHook(req));
 
@@ -83,6 +83,29 @@ app.get("/api/public/config", async () => {
     facilities: FACILITIES,
   };
 });
+
+/* ---------------------------------------------------------------- read-only chain proxy */
+
+// Lets the browser's public verifier read the chain when the RPC itself is not reachable from the internet
+// (for example a Hardhat node running inside the same container). Only read methods are forwarded.
+const RPC_READ_METHODS = new Set([
+  "eth_chainId", "net_version", "eth_blockNumber", "eth_call", "eth_getCode", "eth_getLogs", "eth_getBalance",
+  "eth_getBlockByNumber", "eth_getBlockByHash", "eth_getTransactionByHash", "eth_getTransactionReceipt",
+  "eth_getStorageAt", "eth_estimateGas", "eth_gasPrice", "eth_feeHistory", "eth_maxPriorityFeePerGas",
+]);
+if (config.rpcProxy) {
+  app.post("/api/rpc", async (req, reply) => {
+    const calls = Array.isArray(req.body) ? req.body : [req.body];
+    if (!calls.length || calls.length > 50) return reply.code(400).send({ error: "Invalid JSON-RPC request" });
+    for (const c of calls as { method?: unknown }[]) {
+      if (typeof c?.method !== "string" || !RPC_READ_METHODS.has(c.method)) {
+        return reply.code(403).send({ error: `RPC method not allowed: ${String(c?.method)}` });
+      }
+    }
+    const res = await fetch(config.rpcUrl, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(req.body) });
+    return reply.code(res.status).header("content-type", "application/json").send(await res.text());
+  });
+}
 
 /* ---------------------------------------------------------------- auth */
 
@@ -279,7 +302,10 @@ app.get("/api/stream", async (req: FastifyRequest, reply: FastifyReply) => {
     "content-type": "text/event-stream",
     "cache-control": "no-cache, no-transform",
     connection: "keep-alive",
-    "access-control-allow-origin": "*",
+    "access-control-allow-origin": config.corsOrigins.length
+      ? (config.corsOrigins.find((o) => o === req.headers.origin) ?? config.corsOrigins[0])
+      : "*",
+    vary: "Origin",
   });
   reply.raw.write(`retry: 3000\n\n`);
   // readings arrive in bursts; coalesce them so the browser gets at most a few frames per second

@@ -16,6 +16,8 @@
     "test": "pnpm -r --if-present test",
     "typecheck": "pnpm -r --if-present typecheck",
     "build": "pnpm -r --if-present build",
-    "tamper": "pnpm --filter @mizan/api tamper"
+    "tamper": "pnpm --filter @mizan/api tamper",
+    "render:build": "pnpm --filter @mizan/contracts build",
+    "render:start": "node scripts/render-start.mjs"
   }
 }

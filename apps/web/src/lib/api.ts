@@ -10,6 +10,9 @@ export interface SessionUser {
   address: string | null;
 }
 
+/** Where the API lives. Empty in local dev (Vite proxies /api); set VITE_API_URL for a separate host such as Render. */
+export const API_BASE = ((import.meta.env.VITE_API_URL as string | undefined) ?? "").replace(/\/+$/, "");
+
 const TOKEN_KEY = "mizan.token";
 const store = {
   get: () => {
@@ -47,7 +50,7 @@ export class ApiError extends Error {
 }
 
 export async function api<T = any>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
-  const res = await fetch(path, {
+  const res = await fetch(API_BASE + path, {
     method: init.method ?? (init.body !== undefined ? "POST" : "GET"),
     headers: {
       ...(init.body !== undefined ? { "content-type": "application/json" } : {}),
@@ -85,7 +88,7 @@ const statusListeners = new Set<(c: boolean) => void>();
 
 function ensureStream() {
   if (source) return;
-  source = new EventSource("/api/stream");
+  source = new EventSource(`${API_BASE}/api/stream`);
   source.onopen = () => {
     connected = true;
     statusListeners.forEach((l) => l(true));
