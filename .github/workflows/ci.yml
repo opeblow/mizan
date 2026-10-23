@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Contracts, crypto, types and web build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm (version from package.json)
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # The workspace strips Hardhat's non-Windows engine binaries to keep local installs small.
+      # Re-enable the Linux build for the runner.
+      - name: Enable the Linux Hardhat engine
+        run: sed -i '/edr-linux-x64-gnu/d' pnpm-workspace.yaml
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Compile and test smart contracts (13 tests)
+        run: pnpm --filter @mizan/contracts test
+
+      - name: Test post-quantum signatures, Merkle proofs and CBAM maths
+        run: pnpm --filter @mizan/shared test
+
+      - name: Typecheck all packages
+        run: pnpm typecheck
+
+      - name: Build the web app
+        run: pnpm --filter @mizan/web build
