@@ -1,0 +1,24 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+allowBuilds:
+  esbuild: true
+  keccak: false
+  secp256k1: false
+strictDepBuilds: false
+supportedArchitectures:
+  os: [current]
+  cpu: [current]
+  libc: [current]
+fetchTimeout: 120000
+fetchRetries: 5
+networkConcurrency: 4
+# Hardhat's EDR engine lists every platform binary as a hard dependency (~25 MB each).
+# Only the Windows one is kept. On macOS/Linux, delete the line for your platform (see SETUP.md).
+overrides:
+  "@nomicfoundation/edr-darwin-arm64": "-"
+  "@nomicfoundation/edr-darwin-x64": "-"
+  "@nomicfoundation/edr-linux-arm64-gnu": "-"
+  "@nomicfoundation/edr-linux-arm64-musl": "-"
+  "@nomicfoundation/edr-linux-x64-gnu": "-"
+  "@nomicfoundation/edr-linux-x64-musl": "-"
