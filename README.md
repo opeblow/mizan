@@ -22,6 +22,15 @@ Verifiable embedded-emissions accounting for exporters facing the EU Carbon Bord
   <strong>Demo film (4:06):</strong> <em>YouTube link coming soon</em>
 </p>
 
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="docs/ARCHITECTURE.md">Architecture</a> ·
+  <a href="docs/SECURITY_ASSESSMENT.md">Security assessment</a> ·
+  <a href="docs/SETUP.md">Setup</a> ·
+  <a href="CONTRIBUTING.md">Contributing</a> ·
+  <a href="SECURITY.md">Report a vulnerability</a>
+</p>
+
 ---
 
 Since 1 January 2026, every tonne of cement, steel and aluminium entering the EU carries a carbon price under CBAM. Türkiye supplies close to a third of the EU's imported cement and hosts COP31 this November. Exporters that cannot prove their real emissions are charged on default values with a mark-up, the proof behind most numbers is still a spreadsheet, and carbon already paid at home can be claimed twice.
@@ -58,6 +67,9 @@ Mizan (Turkish for *balance*, the scales of account) turns the meters inside a f
 - [Tech stack](#tech-stack)
 - [Documentation](#documentation)
 - [Limitations, stated plainly](#limitations-stated-plainly)
+- [Contributing](#contributing)
+- [Security policy](#security-policy)
+- [Citation](#citation)
 - [License](#license)
 
 ---
@@ -69,7 +81,7 @@ Mizan (Turkish for *balance*, the scales of account) turns the meters inside a f
 
 | What judges look for | How Mizan delivers | Where to see it |
 |---|---|---|
-| A real, current climate problem | CBAM's definitive period started 1 Jan 2026; Türkiye's ETS rules were published 27 Aug 2026; Turkish exporters supply about 30% of EU cement imports | [PLAN.md](PLAN.md) |
+| A real, current climate problem | CBAM's definitive period started 1 Jan 2026; Türkiye's ETS rules were published 27 Aug 2026; Turkish exporters supply about 30% of EU cement imports | [docs/PLAN.md](docs/PLAN.md) |
 | Emissions transparency | Every tonne of CO₂e traces back to signed meter readings anyone can verify | Public verifier: `apps/web/src/pages/Verify.tsx` |
 | Catching under-reporting | Live attack test: a grid meter reporting 68% of real load was flagged within one interval, with an estimate of the CO₂e it would have hidden | `apps/api/src/integrity/engine.ts` |
 | Driving actual reductions | Exposure planner prices renewable power, fuel switching, lower-clinker cement and efficiency in tonnes avoided and euros saved, 2026 to 2034 | `apps/web/src/pages/Exposure.tsx` |
@@ -115,7 +127,7 @@ Integration is one HTTP endpoint for signed readings; a six-week rollout plan, g
 | Item | Where |
 |---|---|
 | Demo film, 4:06, real product footage, original score | Link at the top of this page |
-| Problem, solution and impact in one page | This README and [PLAN.md](PLAN.md) |
+| Problem, solution and impact in one page | This README and [docs/PLAN.md](docs/PLAN.md) |
 | Five-minute guided tour | [A five-minute tour](#a-five-minute-tour) |
 | A UI designed to be understood | Colour-blind-safe validated palette, light and dark themes, every AI finding explained in words |
 
@@ -124,11 +136,11 @@ The organisers' page lists these deliverables. All are in this repository.
 
 | Required deliverable | Location |
 |---|---|
-| Working prototype (testnet deployment acceptable) | `pnpm demo`; testnet steps in [SETUP.md §5](SETUP.md) |
+| Working prototype (testnet deployment acceptable) | `pnpm demo`; testnet steps in [SETUP.md §5](docs/SETUP.md) |
 | Source code with clear documentation | This repository |
 | Architecture diagram and technical specification | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | Demo video | Link at the top of this page |
-| Security and data integrity assessment | [docs/SECURITY.md](docs/SECURITY.md) |
+| Security and data integrity assessment | [docs/SECURITY_ASSESSMENT.md](docs/SECURITY_ASSESSMENT.md) |
 | Problem statement and solution overview | This README |
 | Implementation and adoption strategy | [docs/ADOPTION.md](docs/ADOPTION.md) |
 | Scalability and sustainability roadmap | [docs/ADOPTION.md](docs/ADOPTION.md) |
@@ -172,7 +184,7 @@ pnpm install
 pnpm demo
 ```
 
-Open http://127.0.0.1:5173 and choose a role. `Ctrl+C` stops everything. On macOS or Linux, see [SETUP.md §1.3](SETUP.md) first (one line to change).
+Open http://127.0.0.1:5173 and choose a role. `Ctrl+C` stops everything. On macOS or Linux, see [SETUP.md §1.3](docs/SETUP.md) first (one line to change).
 
 | Command | What it does |
 |---|---|
@@ -244,7 +256,7 @@ Scores are fused with a noisy-OR into a risk per interval and per window. Every 
 
 ## Security and data integrity
 
-Post-quantum signatures at the source, replay and key-swap protection, Merkle commitments on-chain, role-separated contracts, a hash-chained audit log notarised in every window, and browser-side verification. The STRIDE analysis, smart-contract risk review and limitations are in [docs/SECURITY.md](docs/SECURITY.md).
+Post-quantum signatures at the source, replay and key-swap protection, Merkle commitments on-chain, role-separated contracts, a hash-chained audit log notarised in every window, and browser-side verification. The STRIDE analysis, smart-contract risk review and limitations are in [docs/SECURITY_ASSESSMENT.md](docs/SECURITY_ASSESSMENT.md).
 
 ---
 
@@ -253,8 +265,10 @@ Post-quantum signatures at the source, replay and key-swap protection, Merkle co
 ```text
 mizan/
 ├── .github/
-│   └── workflows/
-│       └── ci.yml                  # Contract tests, crypto tests, typecheck, web build
+│   ├── workflows/ci.yml            # Contract tests, crypto tests, typecheck, web build
+│   ├── ISSUE_TEMPLATE/             # Bug report and feature request forms
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── CODEOWNERS
 ├── apps/
 │   ├── api/                        # Fastify + SQLite backend
 │   │   └── src/
@@ -303,13 +317,17 @@ mizan/
 │           ├── catalog.ts          # Installations and meters
 │           └── core.test.ts
 ├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── SECURITY.md
-│   └── ADOPTION.md
+│   ├── ARCHITECTURE.md             # Architecture and technical specification
+│   ├── SECURITY_ASSESSMENT.md      # Security and data integrity assessment
+│   ├── ADOPTION.md                 # Adoption strategy and scalability roadmap
+│   ├── SETUP.md                    # Setup, testing, testnet deployment
+│   └── PLAN.md                     # Strategy and judging map
 ├── scripts/demo.mjs                # One-command demo orchestrator
-├── AGENTS.md                       # Guide for contributors and coding agents
-├── PLAN.md                         # Strategy, judging map, submission checklist
-├── SETUP.md                        # Setup, tests, testnet deployment, troubleshooting
+├── AGENTS.md                       # Guide for coding agents
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── SECURITY.md                     # Vulnerability disclosure policy
 ├── LICENSE
 └── README.md
 ```
@@ -331,21 +349,46 @@ mizan/
 
 | Document | Contents |
 |---|---|
-| [SETUP.md](SETUP.md) | Install, run, test, deploy to Polygon Amoy, troubleshoot |
-| [PLAN.md](PLAN.md) | Research, judging map, timeline, submission checklist |
+| [docs/SETUP.md](docs/SETUP.md) | Install, run, test, deploy to Polygon Amoy, troubleshoot |
+| [docs/PLAN.md](docs/PLAN.md) | Research, judging map, timeline, submission checklist |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System diagram, data flow, contracts, API, detectors, standards |
-| [docs/SECURITY.md](docs/SECURITY.md) | Threat model, STRIDE, contract risks, limitations |
+| [docs/SECURITY_ASSESSMENT.md](docs/SECURITY_ASSESSMENT.md) | Security and data integrity assessment: threat model, STRIDE, contract risks |
 | [docs/ADOPTION.md](docs/ADOPTION.md) | Users, rollout, go-to-market, scalability, roadmap |
 | [AGENTS.md](AGENTS.md) | Code layout, commands and invariants |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to propose changes, quality bar, protocol invariants |
+| [SECURITY.md](SECURITY.md) | Vulnerability disclosure policy |
+| [CHANGELOG.md](CHANGELOG.md) | Release history |
 
 ## Limitations, stated plainly
 
 - Meters are simulated, using published sector intensities; real deployments connect existing meters through a signing gateway.
-- The chain layer uses ECDSA accounts, so the system is post-quantum at the data source, not end to end. The migration path is in [docs/SECURITY.md](docs/SECURITY.md).
+- The chain layer uses ECDSA accounts, so the system is post-quantum at the data source, not end to end. The migration path is in [docs/SECURITY_ASSESSMENT.md](docs/SECURITY_ASSESSMENT.md).
 - The local demo holds every role's key on the server for one-command convenience; in production each party signs with its own wallet.
 - The CBAM cost model is simplified and its default values are illustrative.
 - All companies shown are fictional.
 
+## Contributing
+
+Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow, the quality bar and the protocol invariants every change must preserve. Everyone taking part is expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Security policy
+
+Please report vulnerabilities privately as described in [SECURITY.md](SECURITY.md). Do not open public issues for security problems.
+
+## Citation
+
+If you refer to Mizan in research or reports:
+
+```bibtex
+@software{mizan2026,
+  title  = {Mizan: Verifiable Embedded-Emissions Accounting for CBAM with Post-Quantum Signed Meters and On-Chain MRV},
+  author = {opeblow and Mizan contributors},
+  year   = {2026},
+  url    = {https://github.com/opeblow/mizan},
+  note   = {IEEE ClimateChain Global Hackathon 2026, Carbon Markets and Emissions Transparency track}
+}
+```
+
 ## License
 
-[MIT](LICENSE)
+Released under the [MIT License](LICENSE).
