@@ -1,0 +1,8 @@
+# Normalise line endings in the repository to LF
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.svg text
+*.sol linguist-language=Solidity
+pnpm-lock.yaml linguist-generated=true -diff
